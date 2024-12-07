@@ -1,7 +1,7 @@
 import { userModel } from "../models/user.models.js";
 import * as userServices from "../services/user.services.js";
 import { validationResult } from "express-validator";
-
+//below code is for registering the user
 export const registerUser = async (req, res, next) => {
 
   //step 1 : check errors 
@@ -32,7 +32,7 @@ const token = await user.generateAuthToken(user);
 
 };
 
-
+//below code is for login user
 export const loginUser = async (req,res,next) => {
   
 
@@ -63,3 +63,4 @@ const token = await user.generateAuthToken();
 return res.status(200).json({user,token});
 
 }
+
