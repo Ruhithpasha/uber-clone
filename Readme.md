@@ -31,7 +31,7 @@ The request body should be a JSON object containing the following fields:
 
 #### Response
 
-201 Created: The user was successfully created.
+- `201 Created`: The user was successfully created.
 
 - `Body`: A JSON object containing the created user and an authentication token.
 - `400 Bad Request`: The request body is invalid or missing required fields.
