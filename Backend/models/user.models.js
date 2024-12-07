@@ -41,7 +41,7 @@ userSchema.methods.generateAuthToken = async function(){
 
 
 // this are the middleware functions that are used to compare the password that is stored in the database and the password that is entered by the user while logging in
-userSchema.comparePassword = async function(password){
+userSchema.methods.comparePassword = async function(password){
     return await bcrypt.compare(password,this.password);
 }
 
