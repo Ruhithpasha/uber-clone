@@ -15,15 +15,17 @@ const app = express();
 
 import connectDB from './db/db.js';
 import userRoutes from './routes/user.routes.js';
+import cookieParser from 'cookie-parser';
 
 connectDB();
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({extended:true}));
+app.use(cookieParser());
 
 //below code is for testing purpose this code is called a route
 app.get('/',(req,res)=>{
-    res.send("hello ruhith chuitya hai")
+    res.send("hello ruhith ")
 })
 
 app.use('/api/users',userRoutes)

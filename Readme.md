@@ -154,3 +154,82 @@ The request body should be a JSON object containing the following fields:
     "message": "Invalid Credentials"
   }
   ```
+
+## User Profile Endpoint
+
+### GET /users/profile
+
+This endpoint is used to retrieve the authenticated user's profile.
+
+#### Request Headers
+
+- `Authorization`: A string containing the Bearer token for authentication.
+
+#### Response
+
+- `200 OK`: The user's profile was successfully retrieved.
+
+  - `Body`: A JSON object containing the user's profile information.
+
+- `401 Unauthorized`: The user is not authenticated or the token is invalid.
+
+  - `Body`: A JSON object with a message indicating the user is not authorized to access this route.
+
+  **Example (200 OK):**
+
+  ```json
+  {
+    "user": {
+      "_id": "60c72b2f9b1d8e001c8e4b8b",
+      "fullName": {
+        "firstName": "John",
+        "lastName": "Doe"
+      },
+      "email": "john.doe@example.com"
+    }
+  }
+  ```
+
+  **Example (401 Unauthorized):**
+
+  ```json
+  {
+    "message": "Not authorized to access this route"
+  }
+  ```
+
+## User Logout Endpoint
+
+### GET /users/logout
+
+This endpoint is used to log out the authenticated user.
+
+#### Request Headers
+
+- `Authorization`: A string containing the Bearer token for authentication.
+
+#### Response
+
+- `200 OK`: The user was successfully logged out.
+
+  - `Body`: A JSON object with a message indicating the user was logged out successfully.
+
+- `401 Unauthorized`: The user is not authenticated or the token is invalid.
+
+  - `Body`: A JSON object with a message indicating the user is not authorized to access this route.
+
+  **Example (200 OK):**
+
+  ```json
+  {
+    "message": "Logged out successfully"
+  }
+  ```
+
+  **Example (401 Unauthorized):**
+
+  ```json
+  {
+    "message": "Not authorized to access this route"
+  }
+  ```
