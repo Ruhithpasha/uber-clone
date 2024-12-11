@@ -13,6 +13,10 @@ export const registerUser = async (req, res, next) => {
   }
 // step 2: get the data from the request body and store into fullName,email,password
   const { fullName, email, password } = req.body;
+  const userAlreadyExists = await userModel.findOne({ email });
+  if (userAlreadyExists) {
+    return res.status(400).json({ message: "User already exists" });
+  }
 
   console.log(req.body)
 // step 3: hash the password using the hashPassword function from userModel

@@ -16,6 +16,8 @@ const app = express();
 import connectDB from './db/db.js';
 import userRoutes from './routes/user.routes.js';
 import cookieParser from 'cookie-parser';
+import captainRoutes from './routes/captain.routes.js';
+
 
 connectDB();
 app.use(cors());
@@ -29,6 +31,7 @@ app.get('/',(req,res)=>{
 })
 
 app.use('/api/users',userRoutes)
+app.use('/api/captains',captainRoutes)
 
 
 
