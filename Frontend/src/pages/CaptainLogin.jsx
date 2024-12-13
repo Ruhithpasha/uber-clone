@@ -53,12 +53,12 @@ const CaptainLogin = () => {
    className='bg-[#eeeeee] mb-7 rounded px-4 py-4 w-full text-lg placeholder:text-base' />
   <button className='bg-[#111] text-white font-semibold mb-3 px-4 py-4 w-full text-lg placeholder:text-base rounded-sm' >Login</button>
 
- <p className='text-center pb-5 text-lg'>Wanna Join?<Link to='/signup' className='text-blue-600 '> Register with Us</Link></p>
+ <p className='text-center pb-5 text-lg'>Wanna Join?<Link to='/captain-signup' className='text-blue-600 '> Register with Us</Link></p>
 
   </form>  
       </div> 
       <div>
-      <Link to='/captain-login' className='bg-[#e7a429] text-white font-semibold mb-2 px-4 py-4 w-full text-lg placeholder:text-base flex items-center justify-center rounded-sm' >Sign in User</Link>
+      <Link to='/login' className='bg-[#e7a429] text-white font-semibold mb-2 px-4 py-4 w-full text-lg placeholder:text-base flex items-center justify-center rounded-sm' >Sign in User</Link>
       </div>
     </div>
   )
