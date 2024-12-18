@@ -1,7 +1,12 @@
 import React, { useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
+import { userdataContext } from '../../context/UserContext'
+import axios from 'axios'
 // this is the login page for the user
 const UserLogin = () => {
+
+  const {user, setuser} = React.useContext(userdataContext)
+  const navigate = useNavigate()
   // using the useState hook to store the email and password
   // the usestate hook is used to store the state of the component
   // the state of component means the data that is stored in the component
@@ -9,14 +14,32 @@ const UserLogin = () => {
   const [password, setpassword] = useState('')
   const [userData, setuserData] = useState({})
 
-  const submitHandler=(e)=>{
+  const submitHandler= async (e)=>{
    e.preventDefault();
    // storing the data in the userData object and the userData object is stored in the userData state
-   setuserData({
+  const newUser ={
     email:email,
     password:password
-   })
+  }
    console.log(userData);
+
+
+
+   try{
+
+    const response = await axios.post(`${import.meta.env.VITE_BASE_URL}/api/users/login`,newUser)                  
+    
+    if (response.status ===200) {
+      const data = response.data
+      // the user data is set in the usercontext and the user is navigated to the home page
+      setuser(data.user)
+      localStorage.setItem('token',data.token)
+      navigate('/home')
+    }
+
+   }catch(error){
+    console.log(error);
+   }
    
   }
   return (
@@ -62,3 +85,16 @@ const UserLogin = () => {
 }
 
 export default UserLogin
+
+
+//steps to connect this with backend
+
+//step1: import the userdataContext from the UserContext.jsx file
+//step2: import the axios from 'axios' to make the api calls
+//step3: create a user using state and assign the useContext to the user and setuser 
+//step4: create a newUser to store email and password in submit handler
+//step5:create a navigate to use the useNavigate hook to navigate to the home page
+//step6: get the response from the api via axios and set the user data in the usercontext and navigate to the home page
+//step7 : dont forget to add the response in try catch block
+//step8: check if the resopnse is 200 then set the user data in the usercontext and navigate to the home page
+//step9: if there is an error then console.log the error

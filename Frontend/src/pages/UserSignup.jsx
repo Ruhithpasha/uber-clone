@@ -1,5 +1,9 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link , useNavigate } from "react-router-dom";
+import axios from 'axios' // importing the axios library to make the api requests
+// import userdataContext from "../../context/UserContext";
+// import UserContext from '../../context/UserContext.jsx' 
+import { userdataContext } from '../../context/UserContext.jsx'
 // this is the signup page for the user
 
 const UserSignup = () => {
@@ -12,7 +16,18 @@ const UserSignup = () => {
   const [firstname, setfirstname] = useState('');
   const [lastname, setlastname] = useState("");
   const [userData, setuserData] = useState('')
-  const submitHandler=(e)=>{
+
+// the below line of code is used to get the data of the user from the usercontext using the useContext hook and stored in the user object
+  const {user, setuser} = React.useContext(userdataContext)
+  // console.log(user);
+  
+// the navigate hook is used to navigate to the different routes in the application
+  const navigate = useNavigate()
+
+
+
+
+  const submitHandler= async (e)=>{
     e.preventDefault()
     //Email  password, firstname and lastname  are set to empty after the form is submitted 
     setEmail("");
@@ -20,20 +35,36 @@ const UserSignup = () => {
     setfirstname("");
     setlastname("");
     console.log(firstname, lastname, email, password);
-    // storing the data in the userData object and the userData object is stored in the userData state
-    setuserData({
-      fullname:{
-        firstname:firstname,
-        lastname:lastname,
-
-      },
-      email:email,
-      password:password
-
-      
-    })
-    console.log(userData);
     
+    // the new user object is created and the data is stored in the newUser object
+   const newUser = {
+    fullName:{
+      firstName:firstname,
+      lastName:lastname,
+    },
+    email:email,
+    password:password
+   }
+    console.log(userData);
+
+    // the data created or stored in newUser objectis sent to the api using the axios post request to the backend
+
+    //to get the response from the backend we use the await keyword and the response is stored in the response variable
+
+    try{
+      const response =await axios.post(`${import.meta.env.VITE_BASE_URL}/api/users/register`,newUser)
+    
+    if (response.status ===201) {
+      const data = response.data
+      // the user data is set in the usercontext and the user is navigated to the home page
+      setuser(data.user)
+      localStorage.setItem('token',data.token)
+      navigate('/home')
+      
+    }      
+    }catch(error){
+      console.error("Error during registration:", error.response ? error.response.data : error.message);
+    } 
 
   }
 
@@ -119,3 +150,30 @@ const UserSignup = () => {
 };
 
 export default UserSignup;
+
+
+// steps to create the user signup page and connect it to the backend
+// step 1: create a new file called UserSignup.jsx in the pages folder of the frontend
+// step 2: import the necessary dependencies and hooks from react and react-router-dom
+// step 3: create a functional component called UserSignup
+// step 4: create state variables to store the user data (email and password, FIRSTNAME, LASTNAME)
+// step 5: create a function called submitHandler to handle the form submission
+// step 6: create a form with input fields for email and password, FIRSTNAME, LASTNAME
+// step 7: add event handlers to update the state variables when the input fields change , eventhandles means the function that is called when the event occurs the submithandler function is the event handler in this case
+// step 8: add a submit button to the form and call the submitHandler function when the form is submitted
+// step 9: add a link to the login page if the user already has an account
+// step 10: export the UserSignup component
+// step 11: import the UserSignup component in the App component
+// step 12: add a route for the UserSignup component in the App component
+// step 13: test the user signup page in the browser
+
+//to connect it to the backend
+
+//step 1: import the axios library to make api requests
+//step 2: create a new state variable to store the user data from the backend
+//step 3: import the UserContext from the context folder
+//step 4: use the useContext hook to get the user data from the UserContext
+//step 5; use the navigate hook to navigate to the home page after the user is signed up
+//step 6: in the submitHandler function, create a new user object with the email and password,firstname and lastname
+//step 7: make a post request to the backend api with the user data using the axios library and the post method by taking the url from the .env file 
+//step 8: if the response status is 201, set the user data in the UserContext and navigate to the home page

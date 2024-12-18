@@ -2,10 +2,16 @@ import React, { useContext } from "react";
 import { Route, Routes } from "react-router-dom";
 import CaptainLogin from "./pages/CaptainLogin";
 import CaptainSignup from "./pages/CaptainSignup";
-import Home from "./pages/Home";
+import Start from "./pages/Start";
 import UserLogin from "./pages/UserLogin";
 import UserSignup from "./pages/UserSignup";
-import { userdataContext } from "../context/UserContext"; //importing the usercontext from the context folder
+import { userdataContext } from "../context/UserContext"; 
+// import UserContext from "../context/UserContext";
+import Home from "./pages/Home";
+// import UserProtectionWrapper from "../pages/UserProtectionWrapper";
+import UserProtectionWrapper from "./pages/UserProtectionWrapper.jsx"
+import UserLogout from "./pages/UserLogout.jsx";
+//importing the usercontext from the context folder
 // this is the main component of the application
 const App = () => {
   const ans = useContext(userdataContext); //using the useContext hook to get the data from the usercontext 
@@ -16,11 +22,22 @@ const App = () => {
     <div>
       {/* // using the Routes and Route component from react-router-dom to create the routes */}
       <Routes>
-        <Route path="/" element={<Home />} />
+        <Route path="/" element={<Start />} />
         <Route path="/captain-signup" element={<CaptainSignup />} />
         <Route path="/captain-login" element={<CaptainLogin />} />
         <Route path="/login" element={<UserLogin />} />
         <Route path="/signup" element={<UserSignup />} />
+        <Route path="/home" element={
+          <UserProtectionWrapper>
+          <Home />
+          </UserProtectionWrapper>} />
+
+          <Route path="/user/logout" element={
+            <UserProtectionWrapper>
+            <UserLogout />
+            </UserProtectionWrapper>} 
+            />
+            
       </Routes>
     </div>
   );
