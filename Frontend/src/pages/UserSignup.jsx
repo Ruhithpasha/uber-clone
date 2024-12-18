@@ -1,7 +1,10 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
+// this is the signup page for the user
 
 const UserSignup = () => {
+  // using the useState hook to store the email and password
+  // the usestate hook is used to store the state of the component
   
    
   const [email, setEmail] = useState("");
@@ -11,11 +14,13 @@ const UserSignup = () => {
   const [userData, setuserData] = useState('')
   const submitHandler=(e)=>{
     e.preventDefault()
+    //Email  password, firstname and lastname  are set to empty after the form is submitted 
     setEmail("");
     setpassword("");
     setfirstname("");
     setlastname("");
     console.log(firstname, lastname, email, password);
+    // storing the data in the userData object and the userData object is stored in the userData state
     setuserData({
       fullname:{
         firstname:firstname,

@@ -1,5 +1,6 @@
 import React from 'react'
-import {Link} from 'react-router-dom'
+import {Link} from 'react-router-dom' //the react router dom is used to create links in the application
+// this is the home page
 
 const Home = () => {
   return (

@@ -1,12 +1,17 @@
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
+// this is the login page for the user
 const UserLogin = () => {
+  // using the useState hook to store the email and password
+  // the usestate hook is used to store the state of the component
+  // the state of component means the data that is stored in the component
   const [email, setEmail] = useState('')
   const [password, setpassword] = useState('')
   const [userData, setuserData] = useState({})
 
   const submitHandler=(e)=>{
    e.preventDefault();
+   // storing the data in the userData object and the userData object is stored in the userData state
    setuserData({
     email:email,
     password:password

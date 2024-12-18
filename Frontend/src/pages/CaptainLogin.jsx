@@ -2,12 +2,15 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import { useState  } from 'react'
 
-const CaptainLogin = () => {
 
+// this is the login page for the captain
+const CaptainLogin = () => {
+// using the useState hook to store the email and password
+// the usestate hook is used to store the state of the component
   const [email, setEmail] = useState('')
   const [password, setpassword] = useState('')
   const [captainData, setcaptainData] = useState({})
-
+// this function is used to submit the form this function is called when the form is submitted
   const submitHandler=(e)=>{
    e.preventDefault();
    setcaptainData({
