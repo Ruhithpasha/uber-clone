@@ -18,7 +18,7 @@ import CaptainProtectionWrapper from "./pages/CaptainProtectionWrapper.jsx";
 const App = () => {
   const ans = useContext(userdataContext); //using the useContext hook to get the data from the usercontext 
   // the useContext hook is used to get the data from the context
-  console.log(ans);
+  // console.log(ans);
 
   return (
     <div>
