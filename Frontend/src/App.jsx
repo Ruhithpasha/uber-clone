@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import { Route, Routes } from "react-router-dom";
-import CaptainLogin from "./pages/CaptainLogin";
+import CaptainLogin from "./pages/CaptainLogin.jsx";
 import CaptainSignup from "./pages/CaptainSignup";
 import Start from "./pages/Start";
 import UserLogin from "./pages/UserLogin";
@@ -11,6 +11,8 @@ import Home from "./pages/Home";
 // import UserProtectionWrapper from "../pages/UserProtectionWrapper";
 import UserProtectionWrapper from "./pages/UserProtectionWrapper.jsx"
 import UserLogout from "./pages/UserLogout.jsx";
+import CaptainHome from "./pages/CaptainHome.jsx";
+import CaptainProtectionWrapper from "./pages/CaptainProtectionWrapper.jsx";
 //importing the usercontext from the context folder
 // this is the main component of the application
 const App = () => {
@@ -32,10 +34,19 @@ const App = () => {
           <Home />
           </UserProtectionWrapper>} />
 
+          <Route path="/CaptainHome" element={
+          <CaptainProtectionWrapper>
+
+            <CaptainHome />
+          </CaptainProtectionWrapper>
+         
+          } />
+
           <Route path="/user/logout" element={
             <UserProtectionWrapper>
             <UserLogout />
-            </UserProtectionWrapper>} 
+            </UserProtectionWrapper>
+            } 
             />
             
       </Routes>

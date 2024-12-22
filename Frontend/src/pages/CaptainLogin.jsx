@@ -1,6 +1,9 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import { useState  } from 'react'
+import { useState,useContext  } from 'react'
+import axios from 'axios'
+import { CaptainDataContext } from "../../context/CaptainContext"
+import { useNavigate } from 'react-router-dom';
 
 
 // this is the login page for the captain
@@ -9,17 +12,42 @@ const CaptainLogin = () => {
 // the usestate hook is used to store the state of the component
   const [email, setEmail] = useState('')
   const [password, setpassword] = useState('')
-  const [captainData, setcaptainData] = useState({})
+  // const [captainData, setcaptainData] = useState({})
+
+ const { captain, setCaptain } = React.useContext(CaptainDataContext);
+  const navigate = useNavigate();
 // this function is used to submit the form this function is called when the form is submitted
-  const submitHandler=(e)=>{
+  const submitHandler= async (e)=>{
    e.preventDefault();
-   setcaptainData({
+   const captainData ={
     email:email,
     password:password
-   })
+   }
    console.log(captainData);
-   
+
+
+   try {
+    const response =await axios.post(`${import.meta.env.VITE_BASE_URL}/api/captains/login`,captainData)
+    console.log("this is response",response);
+    
+            
+    if (response.status === 200) {
+      const data = response.data;
+      console.log("this is data",data);
+      
+      setCaptain(data.captain);
+      localStorage.setItem("token", data.token);
+      navigate('/CaptainHome')
+    } else {
+      console.log(`Unexpected response status: ${response.status}`);
+    }
+    
+   } catch (error) {
+    console.error("Error during login:", error.response ? error.response.data : error.message);
   }
+   }
+   
+  
 
 
 
@@ -66,5 +94,6 @@ const CaptainLogin = () => {
     </div>
   )
 }
+
 
 export default CaptainLogin
